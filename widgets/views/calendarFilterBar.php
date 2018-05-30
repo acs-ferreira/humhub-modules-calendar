@@ -1,9 +1,9 @@
 <?php
+
 use humhub\modules\content\components\ActiveQueryContent;
 use humhub\modules\calendar\models\CalendarEntry;
 use humhub\widgets\Button;
 use humhub\widgets\FadeIn;
-
 ?>
 
 <?php FadeIn::begin() ?>
@@ -11,6 +11,7 @@ use humhub\widgets\FadeIn;
     <div class="col-md-12">
         <div id="calendar-overview-loader" style="position: absolute;right: 10px;top: 60px;"></div>
         <?= Button::defaultType()->link($configUrl)->right()->icon('fa-cog')->visible($canConfigure) ?>
+
         <?php if ($showSelectors) : ?>
             <div class="calendar-selectors">
                 <strong style="padding-left:10px;">
@@ -54,6 +55,7 @@ use humhub\widgets\FadeIn;
                 <?php endif; ?>
             </div>
         <?php endif ?>
+
         <?php if ($showFilters) : ?>
         <div class="calendar-filters" style="<?= ($showSelectors) ? 'border-left:2px solid ' . $this->theme->variable('default') : '' ?>">
             <strong style="padding-left:10px;">
