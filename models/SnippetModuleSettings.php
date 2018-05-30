@@ -9,7 +9,7 @@
 namespace humhub\modules\calendar\models;
 
 use Yii;
-use \yii\base\Model;
+use yii\base\Model;
 
 class SnippetModuleSettings extends Model
 {
@@ -114,7 +114,7 @@ class SnippetModuleSettings extends Model
 
     public function save()
     {
-        if(!$this->validate()) {
+        if (!$this->validate()) {
             return false;
         }
 
@@ -124,6 +124,7 @@ class SnippetModuleSettings extends Model
         $module->settings->set('upcomingEventsSnippetSortOrder', $this->upcomingEventsSnippetSortOrder);
         $module->settings->set('upcomingEventsSnippetMaxItems', $this->upcomingEventsSnippetMaxItems);
         $module->settings->set('showIfInstalled', $this->showIfInstalled);
+
         return true;
     }
 }
