@@ -17,8 +17,8 @@ $extraMenus = '<li><a href="'.$calendarUrl.'"><i class="fa fa-arrow-circle-right
         <?= PanelMenu::widget(['id' => 'calendar-upcoming-events-snippet', 'extraMenus' => $extraMenus]); ?>
     </div>
 
-    <div class="panel-body" style="padding:0px;">
-        <hr style="margin:0px">
+    <div class="panel-body" style="padding: 0;">
+        <hr style="margin: 0">
         <ul class="media-list">
             <?php foreach ($calendarEntries as $entry) : ?>
                 <?php /* @var $entry \humhub\modules\calendar\models\CalendarEntry */ ?>
@@ -32,8 +32,7 @@ $extraMenus = '<li><a href="'.$calendarUrl.'"><i class="fa fa-arrow-circle-right
                                 <strong>
                                     <?= Helpers::trimText(Html::encode($entry->getTitle()), 60) ?>
                                 </strong>
-
-                                <br />
+                                <br>
                                 <span class="time"><?= $formatter->getFormattedTime('medium') ?></span>
                             </div>
                         </div>
