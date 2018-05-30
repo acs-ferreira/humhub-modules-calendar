@@ -6,6 +6,10 @@
  *
  */
 
+use humhub\widgets\mails\MailContentEntry;
+use humhub\widgets\mails\MailButtonList;
+use humhub\widgets\mails\MailButton;
+
 /* @var $this yii\web\View */
 /* @var $viewable humhub\modules\content\notifications\ContentCreated */
 /* @var $url string */
@@ -22,16 +26,17 @@
 ?>
 <?php $this->beginContent('@notification/views/layouts/mail.php', $_params_); ?>
 
-    <?= humhub\widgets\mails\MailContentEntry::widget([
+    <?= MailContentEntry::widget([
             'originator' => $originator,
             'content' => $html,
             'date' => $date,
             'space' => $space
     ]) ?>
-    <?= \humhub\widgets\mails\MailButtonList::widget([
+    <?= MailButtonList::widget([
         'buttons' => [
-            humhub\widgets\mails\MailButton::widget(['url' => $url, 'text' => Yii::t('ContentModule.notifications_mails', 'View Online')])
+            MailButton::widget(['url' => $url, 'text' => Yii::t('ContentModule.notifications_mails', 'View Online')])
         ]
-    ]) ?>
+    ]);
+    ?>
 
 <?php $this->endContent();
