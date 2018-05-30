@@ -6,15 +6,7 @@
  *
  */
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 17.07.2017
- * Time: 21:02
- */
-
 namespace humhub\modules\calendar\widgets;
-
 
 use Yii;
 use yii\helpers\Url;
@@ -53,7 +45,7 @@ class GlobalConfigMenu extends SettingsTabs
             ],
         ];
 
-        if(!empty($calendarService->getCalendarItemTypes())) {
+        if (!empty($calendarService->getCalendarItemTypes())) {
             $this->items[] = [
                 'label' => Yii::t('CalendarModule.widgets_GlobalConfigMenu', 'Other Calendars'),
                 'url' => Url::toRoute(['/calendar/config/calendars']),
