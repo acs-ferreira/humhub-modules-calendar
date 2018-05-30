@@ -1,4 +1,5 @@
 <?php
+
 use humhub\modules\calendar\widgets\CalendarFilterBar;
 use humhub\modules\calendar\widgets\FullCalendar;
 use humhub\widgets\Button;
@@ -7,6 +8,7 @@ use humhub\widgets\FadeIn;
 $configUrl = $contentContainer->createUrl('/calendar/container-config');
 $loadAjaxUrl = $contentContainer->createUrl('/calendar/view/load-ajax');
 ?>
+
 <div class="panel panel-default">
     <div class="panel-body" style="background-color:<?= $this->theme->variable('background-color-secondary') ?>">
         <?= CalendarFilterBar::widget([
