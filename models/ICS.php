@@ -36,7 +36,7 @@ class ICS
      */
     public function __construct($summary, $description, $dtstart, $dtend, $location, $url, $timezone, $allDay = false)
     {
-        if($allDay) {
+        if ($allDay) {
             $dtend = (new DateTime($dtend))->add(new DateInterval('P1D'));
         }
 
@@ -53,6 +53,7 @@ class ICS
     {
         $rows = $this->buildProps();
         $string =  implode("\r\n", $rows);
+
         return $string;
     }
 
@@ -75,6 +76,7 @@ class ICS
             'END:VEVENT',
             'END:VCALENDAR'
         ];
+
         return $ics_props;
     }
 
@@ -83,7 +85,7 @@ class ICS
         $dt = ($timestamp instanceof DateTime) ? $timestamp : new DateTime($timestamp);
         $result =  Yii::$app->formatter->asDate($dt, self::DT_FORMAT_DAY);
 
-        if(!$allDay) {
+        if (!$allDay) {
             $result .= "T".  Yii::$app->formatter->asTime($dt, self::DT_FORMAT_TIME);
         }
 
