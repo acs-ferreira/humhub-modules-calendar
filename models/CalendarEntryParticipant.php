@@ -5,6 +5,10 @@ namespace humhub\modules\calendar\models;
 use humhub\modules\user\models\User;
 use humhub\components\ActiveRecord;
 use humhub\modules\calendar\models\CalendarEntry;
+use humhub\modules\calendar\activities\ResponseAttend;
+use humhub\modules\calendar\activities\ResponseMaybe;
+use humhub\modules\calendar\activities\ResponseDeclined;
+use yii\base\Exception;
 
 /**
  * This is the model class for table "calendar_entry_participant".
@@ -81,16 +85,16 @@ class CalendarEntryParticipant extends ActiveRecord
     {
         $activity = null;
         if ($this->participation_state == self::PARTICIPATION_STATE_ACCEPTED) {
-            $activity = new \humhub\modules\calendar\activities\ResponseAttend;
+            $activity = new ResponseAttend();
         } elseif ($this->participation_state == self::PARTICIPATION_STATE_MAYBE) {
-            $activity = new \humhub\modules\calendar\activities\ResponseMaybe();
+            $activity = new ResponseMaybe();
         } elseif ($this->participation_state == self::PARTICIPATION_STATE_DECLINED) {
-            $activity = new \humhub\modules\calendar\activities\ResponseDeclined();
+            $activity = new ResponseDeclined();
         } else {
-            throw new \yii\base\Exception("Invalid participation state: " . $this->participation_state);
+            throw new Exception('Invalid participation state: ' . $this->participation_state);
         }
 
-        if($activity) {
+        if ($activity) {
             $activity->source = $this->calendarEntry;
             $activity->originator = $this->user;
             $activity->create();
