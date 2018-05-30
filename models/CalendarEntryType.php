@@ -6,15 +6,7 @@
  *
  */
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 23.07.2017
- * Time: 16:55
- */
-
 namespace humhub\modules\calendar\models;
-
 
 use humhub\modules\content\models\ContentTag;
 
