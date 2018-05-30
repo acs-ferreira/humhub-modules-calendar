@@ -14,16 +14,16 @@ use humhub\modules\calendar\widgets\GlobalConfigMenu;
 /* @var $contentContainer \humhub\modules\content\components\ContentContainerActiveRecord */
 ?>
 
-
-
 <div class="panel panel-default">
 
-    <div class="panel-heading"><?= Yii::t('CalendarModule.config', '<strong>Calendar</strong> module configuration'); ?></div>
+    <div class="panel-heading">
+        <?= Yii::t('CalendarModule.config', '<strong>Calendar</strong> module configuration'); ?>
+    </div>
 
-<?php if($contentContainer === null) : ?>
-    <?= GlobalConfigMenu::widget() ?>
+<?php if ($contentContainer === null) : ?>
+    <?= GlobalConfigMenu::widget(); ?>
 <?php else: ?>
-    <?= ContainerConfigMenu::widget()?>
+    <?= ContainerConfigMenu::widget(); ?>
 <?php endif; ?>
 
 <div class="panel-body">
@@ -33,7 +33,7 @@ use humhub\modules\calendar\widgets\GlobalConfigMenu;
         </h4>
 
         <div class="help-block">
-            <?= Yii::t('CalendarModule.config', 'Here you can manage calendar types provided by other modules.') ?>
+            <?= Yii::t('CalendarModule.config', 'Here you can manage calendar types provided by other modules.'); ?>
         </div>
 
     </div>
@@ -41,14 +41,15 @@ use humhub\modules\calendar\widgets\GlobalConfigMenu;
     <br>
 
     <div>
-        <?php foreach($calendars as $itemType) : ?>
+        <?php foreach ($calendars as $itemType) : ?>
             <?= $this->render('_calendarTypeItem', [
                 'editUrl' => $itemType->getEditUrl(),
                 'color' => $itemType->getColor($contentContainer),
                 'deleteUrl' => null,
                 'title' => $itemType->getTitle(),
                 'disabled' => !$itemType->enabled,
-            ]);?>
+            ]);
+            ?>
         <?php endforeach; ?>
     </div>
 
