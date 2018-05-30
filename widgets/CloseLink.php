@@ -6,13 +6,6 @@
  *
  */
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 21.07.2017
- * Time: 17:28
- */
-
 namespace humhub\modules\calendar\widgets;
 
 use Yii;
@@ -28,7 +21,7 @@ class CloseLink extends WallEntryControlLink
 
     public function init()
     {
-        if($this->entry->closed) {
+        if ($this->entry->closed) {
             $this->label = Yii::t('CalendarModule.base', 'Reopen Event');
             $this->icon = 'fa-check';
         } else {
