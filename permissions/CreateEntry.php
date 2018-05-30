@@ -8,6 +8,7 @@
 
 namespace humhub\modules\calendar\permissions;
 
+use humhub\libs\BasePermission;
 use humhub\modules\space\models\Space;
 use humhub\modules\user\models\User;
 use Yii;
@@ -15,7 +16,7 @@ use Yii;
 /**
  * CreateEntry Permission
  */
-class CreateEntry extends \humhub\libs\BasePermission
+class CreateEntry extends BasePermission
 {
     /**
      * @inheritdoc
