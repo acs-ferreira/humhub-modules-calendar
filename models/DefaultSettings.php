@@ -6,13 +6,6 @@
  *
  */
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 17.07.2017
- * Time: 21:15
- */
-
 namespace humhub\modules\calendar\models;
 
 use humhub\components\SettingsManager;
@@ -76,7 +69,7 @@ class DefaultSettings extends Model
 
     private function getSettings()
     {
-        if(!$this->settings) {
+        if (!$this->settings) {
             $module = Yii::$app->getModule('calendar');
             $this->settings = ($this->contentContainer) ? $module->settings->contentContainer($this->contentContainer) : $module->settings;
         }
@@ -118,6 +111,7 @@ class DefaultSettings extends Model
         $settings->set(self::SETTING_PARTICIPATION_MODE, $this->participation_mode);
         $settings->set(self::SETTING_ALLOW_MAYBE, $this->allow_maybe);
         $settings->set(self::SETTING_ALLOW_DECLINE, $this->allow_decline);
+
         return true;
     }
 
