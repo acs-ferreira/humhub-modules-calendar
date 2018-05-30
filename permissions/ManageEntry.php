@@ -9,6 +9,7 @@
 
 namespace humhub\modules\calendar\permissions;
 
+use humhub\libs\BasePermission;
 use humhub\modules\space\models\Space;
 use humhub\modules\user\models\User;
 use Yii;
@@ -16,7 +17,7 @@ use Yii;
 /**
  * CreateEntry Permission
  */
-class ManageEntry extends \humhub\libs\BasePermission
+class ManageEntry extends BasePermission
 {
     /**
      * @inheritdoc
@@ -44,8 +45,6 @@ class ManageEntry extends \humhub\libs\BasePermission
         User::USERGROUP_FRIEND,
     ];
 
-
-
     public function getTitle()
     {
         return Yii::t('CalendarModule.permissions', 'Manage entries');
@@ -55,6 +54,5 @@ class ManageEntry extends \humhub\libs\BasePermission
     {
         return Yii::t('CalendarModule.permissions', 'Allows the user to edit/delete existing calendar entries');
     }
-
 
 }
