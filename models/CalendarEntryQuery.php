@@ -1,14 +1,16 @@
 <?php
+
 namespace humhub\modules\calendar\models;
 
 use humhub\modules\calendar\interfaces\AbstractCalendarQuery;
 use humhub\modules\cfiles\models\rows\AbstractFileSystemItemRow;
-use Yii;
 use humhub\modules\space\models\Space;
-use DateTime;
-use DateInterval;
 use humhub\modules\user\models\User;
 use humhub\modules\content\components\ActiveQueryContent;
+use Yii;
+use yii\db\Expression;
+use DateTime;
+use DateInterval;
 
 /**
  * CalendarEntryQuery class can be used for creating filter queries for [[CalendarEntry]] models.
@@ -69,13 +71,13 @@ class CalendarEntryQuery extends AbstractCalendarQuery
     public function filterResponded()
     {
         $this->participantJoin();
-        $this->_query->andWhere(['IS NOT', 'calendar_entry_participant.id', new \yii\db\Expression('NULL')]);
+        $this->_query->andWhere(['IS NOT', 'calendar_entry_participant.id', new Expression('NULL')]);
     }
 
     public function filterNotResponded()
     {
         $this->participantJoin();
-        $this->_query->andWhere(['IS', 'calendar_entry_participant.id', new \yii\db\Expression('NULL')]);
+        $this->_query->andWhere(['IS', 'calendar_entry_participant.id', new Expression('NULL')]);
     }
 
     public function filterIsParticipant()
@@ -86,7 +88,7 @@ class CalendarEntryQuery extends AbstractCalendarQuery
 
     private function participantJoin()
     {
-        if(!$this->praticipantJoined) {
+        if (!$this->praticipantJoined) {
             $this->_query->leftJoin('calendar_entry_participant', 'calendar_entry.id=calendar_entry_participant.calendar_entry_id AND calendar_entry_participant.user_id=:userId', [':userId' => $this->_user->id]);
             $this->praticipantJoined = true;
         }
