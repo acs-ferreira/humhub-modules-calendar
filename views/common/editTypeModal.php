@@ -15,7 +15,7 @@ use humhub\widgets\ModalDialog;
 
 /* @var $model CalendarEntryType|CalendarItemType */
 
-if($model instanceof CalendarItemType) {
+if ($model instanceof CalendarItemType) {
     $title = Yii::t('CalendarModule.views_container-config_typesConfig', '<strong>Edit</strong> calendar');
     $titleAttribute = 'title';
     $titleDisabled = true;
@@ -26,11 +26,10 @@ if($model instanceof CalendarItemType) {
     $titleAttribute = 'name';
     $titleDisabled = false;
 }
-
 ?>
 
 <?php ModalDialog::begin(['header' => Yii::t('CalendarModule.views_container-config_typesConfig', $title)]); ?>
-    <?php $form = ActiveForm::begin()?>
+    <?php $form = ActiveForm::begin(); ?>
         <div class="modal-body">
             <div id="event-type-color-field" class="form-group space-color-chooser-edit" style="margin-top: 5px;">
                 <?= ColorPickerField::widget(['model' => $model, 'container' => 'event-type-color-field']); ?>
@@ -45,13 +44,13 @@ if($model instanceof CalendarItemType) {
                                 {error}{hint}'
                 ])->textInput(['disabled' => $titleDisabled, 'placeholder' => Yii::t('CalendarModule.config', 'Name'), 'maxlength' => 100])->label(false) ?>
             </div>
-            <?php if($model instanceof CalendarItemType) : ?>
-                <?= $form->field($model, 'enabled')->checkbox() ?>
+            <?php if ($model instanceof CalendarItemType) : ?>
+                <?= $form->field($model, 'enabled')->checkbox(); ?>
             <?php endif; ?>
         </div>
         <div class="modal-footer">
             <?= ModalButton::submitModal(); ?>
             <?= ModalButton::cancel(); ?>
         </div>
-    <?php ActiveForm::end()?>
-<?php ModalDialog::end() ?>
+    <?php ActiveForm::end(); ?>
+<?php ModalDialog::end(); ?>
