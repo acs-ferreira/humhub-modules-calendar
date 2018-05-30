@@ -2,7 +2,6 @@
 
 namespace humhub\modules\calendar\models;
 
-use DateTimeZone;
 use humhub\libs\Html;
 use humhub\libs\TimezoneHelper;
 use humhub\modules\calendar\CalendarUtils;
@@ -18,15 +17,16 @@ use humhub\modules\content\models\Content;
 use humhub\modules\content\models\ContentTag;
 use humhub\modules\search\interfaces\Searchable;
 use humhub\widgets\Label;
-use Yii;
-use DateTime;
-use DateInterval;
-use yii\base\Exception;
 use humhub\libs\DbDateValidator;
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\content\components\ContentActiveRecord;
 use humhub\modules\calendar\models\CalendarEntryParticipant;
 use humhub\modules\user\models\User;
+use DateTime;
+use DateInterval;
+use DateTimeZone;
+use Yii;
+use yii\base\Exception;
 use yii\db\ActiveQuery;
 
 /**
@@ -133,7 +133,7 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
      */
     public function getContentName()
     {
-        return Yii::t('CalendarModule.base', "Event");
+        return Yii::t('CalendarModule.base', 'Event');
     }
 
     /**
@@ -159,12 +159,12 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
     {
         $labels = [];
 
-        if($this->closed) {
+        if ($this->closed) {
             $labels[] = Label::danger(Yii::t('CalendarModule.base', 'canceled'))->sortOrder(15);
         }
 
         $type = $this->getType();
-        if($type) {
+        if ($type) {
             $labels[] = Label::asColor($type->color, $type->name)->sortOrder(310);
         }
 
@@ -200,7 +200,7 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
     public function validateEndTime($attribute, $params)
     {
         if (new DateTime($this->start_datetime) >= new DateTime($this->end_datetime)) {
-            $this->addError($attribute, Yii::t('CalendarModule.base', "End time must be after start time!"));
+            $this->addError($attribute, Yii::t('CalendarModule.base', 'End time must be after start time!'));
         }
     }
 
@@ -259,9 +259,10 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
 
         $participants = $this->getParticipantUsersByState([
             CalendarEntryParticipant::PARTICIPATION_STATE_MAYBE,
-            CalendarEntryParticipant::PARTICIPATION_STATE_ACCEPTED]);
+            CalendarEntryParticipant::PARTICIPATION_STATE_ACCEPTED
+        ]);
 
-        if($this->closed) {
+        if ($this->closed) {
             CanceledEvent::instance()->from(Yii::$app->user->getIdentity())->about($this)->sendBulk($participants);
         } else {
             ReopenedEvent::instance()->from(Yii::$app->user->getIdentity())->about($this)->sendBulk($participants);
@@ -272,7 +273,8 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
     {
         $participants = $this->getParticipantUsersByState([
             CalendarEntryParticipant::PARTICIPATION_STATE_MAYBE,
-            CalendarEntryParticipant::PARTICIPATION_STATE_ACCEPTED]);
+            CalendarEntryParticipant::PARTICIPATION_STATE_ACCEPTED
+        ]);
 
         EventUpdated::instance()->from(Yii::$app->user->getIdentity())->about($this)->sendBulk($participants);
     }
@@ -294,7 +296,7 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
     public function setType($type)
     {
         $type = ($type instanceof ContentTag) ? $type : ContentTag::findOne($type);
-        if($type->is(CalendarEntryType::class)) {
+        if ($type->is(CalendarEntryType::class)) {
             CalendarEntryType::deleteContentRelations($this->content);
             $this->content->addTag($type);
         }
@@ -320,7 +322,7 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
 
     public function getParticipantUsersByState($state)
     {
-        if(is_int($state)) {
+        if (is_int($state)) {
             $state = [$state];
         }
 
@@ -356,7 +358,7 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
             $user = Yii::$app->user->getIdentity();
         }
 
-        if(!$user) {
+        if (!$user) {
             return;
         }
 
@@ -366,6 +368,7 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
     public function isParticipant(User $user = null)
     {
         $participant = $this->findParticipant($user);
+
         return !empty($participant) && $participant->showParticipantInfo();
     }
 
@@ -384,7 +387,7 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
             $end = $endDateTime->format('Y-m-d');
         }
 
-        if(!Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest) {
             Yii::$app->formatter->timeZone = Yii::$app->user->getIdentity()->time_zone;
         }
 
@@ -480,7 +483,7 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
         }
 
         // TODO return a calendarEntryParticipant with errors explaining why
-        if(!$this->canRespond()) {
+        if (!$this->canRespond()) {
             return null;
         }
 
@@ -492,13 +495,14 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
                 'calendar_entry_id' => $this->id]);
         }
 
-        if($type === CalendarEntryParticipant::PARTICIPATION_STATE_NONE) {
+        if ($type === CalendarEntryParticipant::PARTICIPATION_STATE_NONE) {
             // never explicitly store PARTICIPATION_STATE 0
             $calendarEntryParticipant->delete();
         } else {
             $calendarEntryParticipant->participation_state = $type;
             $calendarEntryParticipant->save();
         }
+
         return $calendarEntryParticipant;
     }
 
@@ -507,7 +511,6 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
         if (Yii::$app->user->isGuest) {
             return 0;
         }
-
 
         if ($user == null) {
             $user = Yii::$app->user->getIdentity();
@@ -581,7 +584,7 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
      */
     public function isAllDay()
     {
-        if($this->all_day === null) {
+        if ($this->all_day === null) {
             return true;
         }
 
@@ -652,12 +655,12 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
     {
         $participant = $this->findParticipant();
 
-        if($participant && $this->isParticipationAllowed()) {
+        if ($participant && $this->isParticipationAllowed()) {
             switch($participant->participation_state) {
                 case CalendarEntryParticipant::PARTICIPATION_STATE_ACCEPTED:
                     return Label::success(Yii::t('CalendarModule.base', 'Attending'))->right();
                 case CalendarEntryParticipant::PARTICIPATION_STATE_MAYBE:
-                    if($this->allow_maybe) {
+                    if ($this->allow_maybe) {
                         return Label::success(Yii::t('CalendarModule.base', 'Interested'))->right();
                     }
             }
@@ -671,6 +674,7 @@ class CalendarEntry extends ContentActiveRecord implements Searchable, CalendarI
         $module = Yii::$app;
         $timezone = $module->settings->get('timeZone');
         $ics = new ICS($this->title, $this->description,$this->start_datetime, $this->end_datetime, null, null, $timezone, $this->all_day);
+
         return $ics;
     }
 }
