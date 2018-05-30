@@ -33,7 +33,6 @@ class CalendarUtils
             }
         }
 
-
         return false;
     }
 
