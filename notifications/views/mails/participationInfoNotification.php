@@ -5,6 +5,10 @@
  * @license https://www.humhub.com/licences
  *
  */
+use humhub\widgets\mails\MailContentEntry;
+use humhub\widgets\mails\MailButtonList;
+use humhub\widgets\mails\MailButton;
+use humhub\widgets\MarkdownView;
 
 /* @var $this yii\web\View */
 /* @var $viewable humhub\modules\content\notifications\ContentCreated */
@@ -23,18 +27,20 @@
 <?php $this->beginContent('@notification/views/layouts/mail.php', $_params_); ?>
 
     <div style="overflow:hidden">
-        <?= humhub\widgets\mails\MailContentEntry::widget([
+        <?= MailContentEntry::widget([
             'originator' => $originator,
-            'content' => $html.'<br><br>'.\humhub\widgets\MarkdownView::widget(['markdown' => $source->participant_info]),
+            'content' => $html . '<br><br>' . MarkdownView::widget(['markdown' => $source->participant_info]),
             'date' => $date,
             'space' => $space
-        ]) ?>
+        ]);
+        ?>
     </div>
 
-    <?= \humhub\widgets\mails\MailButtonList::widget([
+    <?= MailButtonList::widget([
         'buttons' => [
-            humhub\widgets\mails\MailButton::widget(['url' => $url, 'text' => Yii::t('ContentModule.notifications_mails', 'View Online')])
+            MailButton::widget(['url' => $url, 'text' => Yii::t('ContentModule.notifications_mails', 'View Online')])
         ]
-    ]) ?>
+    ]);
+    ?>
 
 <?php $this->endContent();
