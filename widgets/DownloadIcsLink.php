@@ -12,7 +12,6 @@ use humhub\libs\Html;
 use humhub\modules\calendar\models\CalendarEntry;
 use Yii;
 
-
 /**
  * Class DownloadIcsLink
  * @package humhub\modules\calendar\widgets
