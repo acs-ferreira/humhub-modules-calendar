@@ -11,12 +11,6 @@ namespace humhub\modules\calendar\notifications;
 use humhub\modules\notification\components\NotificationCategory;
 use Yii;
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 21.07.2017
- * Time: 23:15
- */
 class CalendarNotificationCategory extends NotificationCategory
 {
     /**
