@@ -25,6 +25,7 @@ class Module extends ContentContainerModule
     public function init()
     {
         parent::init();
+
         $this->set(CalendarService::class, ['class' => CalendarService::class]);
     }
 
@@ -89,9 +90,7 @@ class Module extends ContentContainerModule
 
     public function getConfigUrl()
     {
-        return Url::to([
-                    '/calendar/config'
-        ]);
+        return Url::to(['/calendar/config']);
     }
 
     /**
@@ -105,6 +104,7 @@ class Module extends ContentContainerModule
                 new permissions\ManageEntry(),
             ];
         }
+
         return [];
     }
 
@@ -123,6 +123,7 @@ class Module extends ContentContainerModule
         if (empty(Yii::$app->formatter->timeZone)) {
             Yii::$app->formatter->timeZone = Yii::$app->timeZone;
         }
+
         return parent::beforeAction($action);
     }
 
