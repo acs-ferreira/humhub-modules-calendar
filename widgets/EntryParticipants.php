@@ -22,7 +22,7 @@ class EntryParticipants extends Widget
 
     public function run()
     {
-        if($this->calendarEntry->closed) {
+        if ($this->calendarEntry->closed) {
             return;
         }
 
@@ -40,20 +40,20 @@ class EntryParticipants extends Widget
 
     private function getParticipantStateCount($state, $condition)
     {
-        if(!$condition) {
+        if (!$condition) {
             return null;
         }
 
-        return  $this->calendarEntry->getParticipantCount($state);
+        return $this->calendarEntry->getParticipantCount($state);
     }
 
     public static function participateButton($calendarEntry, $state, $label)
     {
-        if($state == CalendarEntryParticipant::PARTICIPATION_STATE_MAYBE
+        if ($state == CalendarEntryParticipant::PARTICIPATION_STATE_MAYBE
            && !$calendarEntry->allow_maybe) {
             return null;
         }
-        if($state == CalendarEntryParticipant::PARTICIPATION_STATE_DECLINED
+        if ($state == CalendarEntryParticipant::PARTICIPATION_STATE_DECLINED
             && !$calendarEntry->allow_decline) {
             return null;
         }
