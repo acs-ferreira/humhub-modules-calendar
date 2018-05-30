@@ -6,13 +6,6 @@
  *
  */
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 17.07.2017
- * Time: 21:02
- */
-
 namespace humhub\modules\calendar\widgets;
 
 use Yii;
@@ -44,7 +37,7 @@ class ContainerConfigMenu extends SettingsTabs
             ],
         ];
 
-        if(!empty($calendarService->getCalendarItemTypes($contentContainer))) {
+        if (!empty($calendarService->getCalendarItemTypes($contentContainer))) {
             $this->items[] = [
                 'label' => Yii::t('CalendarModule.widgets_GlobalConfigMenu', 'Other Calendars'),
                 'url' => $contentContainer->createUrl('/calendar/container-config/calendars'),
