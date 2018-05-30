@@ -15,8 +15,8 @@ use humhub\widgets\ModalButton;
 /* @var $isGlobal */
 /* @var $color */
 /* @var $disabled */
-
 ?>
+
 <div class="media" style="margin-top:5px;">
     <div class="media-body">
         <div class="input-group">
@@ -25,16 +25,16 @@ use humhub\widgets\ModalButton;
             </span>
             <input class="form-control" value="<?= Html::encode($title) ?><?= ($disabled ? ' - '.Yii::t('CalendarModule.config', '(disabled)') : '') ?>" title="<?= Yii::t('CalendarModule.base', 'Event type color');?>" type="text" readonly>
             <span class="input-group-addon">
-                <?php if(empty($editUrl)) : ?>
-                    <small><?=  Yii::t('CalendarModule.config', '(global)') ?></small>
-                <?php else: ?>
-                    <?= ModalButton::primary()->load($editUrl)->icon('fa-pencil')->xs() ?>
+                <?php if (empty($editUrl)) : ?>
+                    <small><?= Yii::t('CalendarModule.config', '(global)'); ?></small>
+                <?php else : ?>
+                    <?= ModalButton::primary()->load($editUrl)->icon('fa-pencil')->xs(); ?>
                     <?php if(!empty($deleteUrl)) : ?>
                         <?= ModalButton::danger()->post($deleteUrl)->confirm(
                             Yii::t('CalendarModule.config', '<strong>Confirm</strong> Deletion'),
                             Yii::t('CalendarModule.config', 'Do you really want to delte this event type?'),
-                            Yii::t('CalendarModule.config', 'Delete'))->icon('fa-times')->xs() ?>
-                    <?php endif ?>
+                            Yii::t('CalendarModule.config', 'Delete'))->icon('fa-times')->xs(); ?>
+                    <?php endif; ?>
                 <?php endif; ?>
             </span>
         </div>
