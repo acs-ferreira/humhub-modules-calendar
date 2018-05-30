@@ -10,12 +10,14 @@
 
 use humhub\modules\calendar\widgets\GlobalConfigMenu;
 use yii\widgets\ActiveForm;
-use \yii\helpers\Html;
+use yii\helpers\Html;
 ?>
 
 <div class="panel panel-default">
 
-    <div class="panel-heading"><?= Yii::t('CalendarModule.config', '<strong>Calendar</strong> module configuration'); ?></div>
+    <div class="panel-heading">
+        <?= Yii::t('CalendarModule.config', '<strong>Calendar</strong> module configuration'); ?>
+    </div>
 
     <?= GlobalConfigMenu::widget() ?>
 
@@ -32,8 +34,8 @@ use \yii\helpers\Html;
         
         <?= $form->field($model, 'upcomingEventsSnippetShow')->checkbox(); ?>
         <?= $form->field($model, 'upcomingEventsSnippetDuration')->dropDownList($model->getDurationItems()); ?>
-        <?= $form->field($model, 'upcomingEventsSnippetMaxItems')->input('number', ['min' => 1, 'max' => 30]) ?>
-        <?= $form->field($model, 'upcomingEventsSnippetSortOrder')->input('number', ['min' => 0]) ?>
+        <?= $form->field($model, 'upcomingEventsSnippetMaxItems')->input('number', ['min' => 1, 'max' => 30]); ?>
+        <?= $form->field($model, 'upcomingEventsSnippetSortOrder')->input('number', ['min' => 0]); ?>
         
         <hr>
 
@@ -43,7 +45,7 @@ use \yii\helpers\Html;
                 'If activated, the calendar top menu item and dashboard snippet is only visible for users having the calendar module installed in their profile.'));
         ?>
 
-        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'data-ui-loader' => '']) ?>
+        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'data-ui-loader' => '']); ?>
         <?php ActiveForm::end(); ?>
     </div>
 </div>
