@@ -29,7 +29,7 @@ use humhub\widgets\ModalButton;
                     <small><?= Yii::t('CalendarModule.config', '(global)'); ?></small>
                 <?php else : ?>
                     <?= ModalButton::primary()->load($editUrl)->icon('fa-pencil')->xs(); ?>
-                    <?php if(!empty($deleteUrl)) : ?>
+                    <?php if (!empty($deleteUrl)) : ?>
                         <?= ModalButton::danger()->post($deleteUrl)->confirm(
                             Yii::t('CalendarModule.config', '<strong>Confirm</strong> Deletion'),
                             Yii::t('CalendarModule.config', 'Do you really want to delte this event type?'),
