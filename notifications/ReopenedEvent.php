@@ -14,12 +14,6 @@ use humhub\modules\notification\components\BaseNotification;
 use humhub\modules\space\models\Space;
 use Yii;
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 21.07.2017
- * Time: 23:12
- */
 class ReopenedEvent extends BaseNotification
 {
     /**
@@ -45,7 +39,7 @@ class ReopenedEvent extends BaseNotification
      */
     public function html()
     {
-        if($this->source->content->container instanceof Space) {
+        if ($this->source->content->container instanceof Space) {
             return Yii::t('CalendarModule.notifications_views_CanceledEvent', '{displayName} reopened event {contentTitle} in space {spaceName}.', [
                 'displayName' => Html::tag('strong', Html::encode($this->originator->displayName)),
                 'contentTitle' => $this->getContentInfo($this->source, false),
