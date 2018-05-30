@@ -5,9 +5,9 @@
  * @license https://www.humhub.com/licences
  *
  */
+
 use humhub\modules\file\widgets\FilePreview;
 use humhub\modules\file\widgets\UploadButton;
-
 
 /* @var $form \humhub\widgets\ActiveForm */
 /* @var $calendarEntryForm \humhub\modules\calendar\models\forms\CalendarEntryForm */
@@ -27,9 +27,12 @@ use humhub\modules\file\widgets\UploadButton;
                 'preview' => '#calendar_upload_preview',
                 'progress' => '#calendar_upload_progress',
                 'max' => Yii::$app->getModule('content')->maxAttachedFiles,
-            ]) ?>
+            ]);
+            ?>
         </div>
+
         <div class="col-md-1"></div>
+
         <div class="col-md-9">
             <?= FilePreview::widget([
                 'id' => 'calendar_upload_preview',
@@ -37,7 +40,8 @@ use humhub\modules\file\widgets\UploadButton;
                 'model' => $calendarEntryForm->entry,
                 'showInStream' => true,
                 'edit' => true,
-            ]) ?>
+            ]);
+            ?>
         </div>
     </div>
     <br>
