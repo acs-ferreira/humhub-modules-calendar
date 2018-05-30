@@ -1,4 +1,5 @@
 <?php
+
 use humhub\modules\calendar\models\CalendarEntryType;
 use humhub\widgets\ColorPickerField;
 use humhub\widgets\ContentTagDropDown;
@@ -14,7 +15,6 @@ use yii\jui\DatePicker;
 
 <div class="modal-body">
 
-
     <div id="event-color-field" class="form-group space-color-chooser-edit" style="margin-top: 5px;">
         <?= ColorPickerField::widget(['model' => $calendarEntryForm->entry, 'field' => 'color', 'container' => 'event-color-field']); ?>
 
@@ -27,7 +27,7 @@ use yii\jui\DatePicker;
                                     {input}
                                 </div>
                                 {error}{hint}'
-        ])->textInput(['placeholder' => Yii::t('CalendarModule.views_entry_edit', 'Title'), 'maxlength' => 45])->label(false) ?>
+        ])->textInput(['placeholder' => Yii::t('CalendarModule.views_entry_edit', 'Title'), 'maxlength' => 45])->label(false); ?>
     </div>
 
     <?= $form->field($calendarEntryForm, 'type_id')->widget(ContentTagDropDown::class, [
@@ -45,27 +45,25 @@ use yii\jui\DatePicker;
         ]
     ])->label(false); ?>
 
-    <?= $form->field($calendarEntryForm->entry, 'description')->widget(MarkdownField::class, ['fileModel' => $calendarEntryForm->entry, 'fileAttribute' => 'files'])->label(false) ?>
+    <?= $form->field($calendarEntryForm->entry, 'description')->widget(MarkdownField::class, ['fileModel' => $calendarEntryForm->entry, 'fileAttribute' => 'files'])->label(false); ?>
 
     <?= $form->field($calendarEntryForm, 'is_public')->checkbox() ?>
-    <?= $form->field($calendarEntryForm->entry, 'all_day')->checkbox(['data-action-change' => 'toggleDateTime']) ?>
+    <?= $form->field($calendarEntryForm->entry, 'all_day')->checkbox(['data-action-change' => 'toggleDateTime']); ?>
 
     <?php Yii::$app->formatter->timeZone = $calendarEntryForm->timeZone ?>
 
     <div class="row">
         <div class="col-md-6">
-            <?= $form->field($calendarEntryForm, 'start_date')->widget(DatePicker::className(), ['dateFormat' => Yii::$app->params['formatter']['defaultDateFormat'], 'clientOptions' => [], 'options' => ['class' => 'form-control']]) ?>
+            <?= $form->field($calendarEntryForm, 'start_date')->widget(DatePicker::className(), ['dateFormat' => Yii::$app->params['formatter']['defaultDateFormat'], 'clientOptions' => [], 'options' => ['class' => 'form-control']]); ?>
         </div>
         <div class="col-md-6 timeField" <?= !$calendarEntryForm->showTimeFields() ? 'style="opacity:0.2"' : '' ?>>
             <?= $form->field($calendarEntryForm, 'start_time')->widget(TimePicker::class, ['disabled' => $calendarEntryForm->entry->all_day]); ?>
         </div>
     </div>
 
-
-
     <div class="row">
         <div class="col-md-6">
-            <?= $form->field($calendarEntryForm, 'end_date')->widget(DatePicker::className(), ['dateFormat' => Yii::$app->params['formatter']['defaultDateFormat'], 'clientOptions' => [], 'options' => ['class' => 'form-control']]) ?>
+            <?= $form->field($calendarEntryForm, 'end_date')->widget(DatePicker::className(), ['dateFormat' => Yii::$app->params['formatter']['defaultDateFormat'], 'clientOptions' => [], 'options' => ['class' => 'form-control']]); ?>
         </div>
         <div class="col-md-6 timeField" <?= !$calendarEntryForm->showTimeFields() ? 'style="opacity:0.2"' : '' ?>>
             <?= $form->field($calendarEntryForm, 'end_time')->widget(TimePicker::class, ['disabled' => $calendarEntryForm->entry->all_day]); ?>
@@ -77,7 +75,7 @@ use yii\jui\DatePicker;
     <div class="row">
         <div class="col-md-6"></div>
         <div class="col-md-6 timeZoneField" >
-            <?= TimeZoneDropdownAddition::widget(['model' => $calendarEntryForm])?>
+            <?= TimeZoneDropdownAddition::widget(['model' => $calendarEntryForm]); ?>
         </div>
     </div>
 </div>
