@@ -6,19 +6,11 @@
  *
  */
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 14.09.2017
- * Time: 17:16
- */
-
 namespace humhub\modules\calendar\interfaces;
-
 
 use humhub\widgets\Label;
 use Yii;
-use \DateTime;
+use DateTime;
 use yii\base\Object;
 use yii\helpers\Html;
 
@@ -115,7 +107,7 @@ class CalendarItemWrapper extends Object implements CalendarItem
 
     public function isAllDay()
     {
-        if($this->getOption(static::OPTION_ALL_DAY, $this->itemType->isAllDay())) {
+        if ($this->getOption(static::OPTION_ALL_DAY, $this->itemType->isAllDay())) {
             return true;
         } else {
             return false;
@@ -140,6 +132,7 @@ class CalendarItemWrapper extends Object implements CalendarItem
     protected function getOption($key, $default, $options = null)
     {
         $options = (empty($options)) ? $this->options : $options;
+
         return isset($options[$key]) ? $options[$key] : $default;
     }
 
