@@ -16,15 +16,15 @@ use yii\helpers\Url;
                     'canConfigure' => $canConfigure,
                     'configUrl' => $configureUrl,
                     'filters' => $filters
-            ])?>
+            ]);
+            ?>
         </div>
         <div class="row">
             <div class="col-md-12">
 
                 <div class="panel panel-default" style="margin-bottom:0px">
                     <div class="panel-body">
-                        <?=
-                        FullCalendar::widget([
+                        <?= FullCalendar::widget([
                             'canWrite' => true,
                             'selectors' => $selectors,
                             'filters' => $filters,
