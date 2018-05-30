@@ -6,13 +6,6 @@
  *
  */
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 14.09.2017
- * Time: 12:33
- */
-
 namespace humhub\modules\calendar\interfaces;
 
 use DateInterval;
@@ -69,7 +62,7 @@ class CalendarService extends Component
     {
         $containerKey = ($contentContainer) ? $contentContainer->contentcontainer_id : 'global';
 
-        if(isset(static::$resultCache[$containerKey])) {
+        if (isset(static::$resultCache[$containerKey])) {
             return static::$resultCache[$containerKey];
         }
 
@@ -80,7 +73,6 @@ class CalendarService extends Component
         foreach ($event->getTypes() as $key => $options) {
             $result[] = new CalendarItemType(['key' => $key, 'options' => $options, 'contentContainer' => $contentContainer]);
         }
-
 
         return static::$resultCache[$containerKey] = $result;
     }
@@ -109,14 +101,10 @@ class CalendarService extends Component
         $event = new CalendarItemsEvent(['contentContainer' => $contentContainer, 'start' => $start, 'end' => $end, 'filters' => $filters, 'limit' => $limit]);
         $this->trigger(static::EVENT_FIND_ITEMS, $event);
 
-
-
-
         foreach($event->getItems() as $itemTypeKey => $items) {
             $itemType = $this->getItemType($itemTypeKey, $contentContainer);
 
-
-            if($itemType && $itemType->isEnabled()) {
+            if ($itemType && $itemType->isEnabled()) {
                 foreach ($items as $item) {
                     $result[] = new CalendarItemWrapper(['itemType' => $itemType, 'options' => $item]);
                 }
@@ -156,7 +144,7 @@ class CalendarService extends Component
     {
         $itemTypes = $this->getCalendarItemTypes($contentContainer);
         foreach ($itemTypes as $itemType) {
-            if($itemType->key === $key) {
+            if ($itemType->key === $key) {
                 return $itemType;
             }
         }
