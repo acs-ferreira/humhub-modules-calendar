@@ -17,13 +17,6 @@ use Yii;
 use yii\base\Object;
 use yii\helpers\Html;
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 14.09.2017
- * Time: 12:28
- */
-
 class BirthdayCalendar extends Object
 {
     /**
@@ -73,8 +66,6 @@ class BirthdayCalendar extends Object
 
         $event->addItems(static::ITEM_TYPE_KEY, $items);
     }
-
-
 
     public static function getTitle(User $user)
     {
