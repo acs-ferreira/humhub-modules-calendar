@@ -5,10 +5,10 @@ namespace humhub\modules\calendar\controllers;
 use DateTime;
 use humhub\modules\calendar\interfaces\CalendarService;
 use humhub\modules\space\models\Space;
-use Yii;
 use humhub\modules\calendar\permissions\CreateEntry;
 use humhub\modules\content\components\ContentContainerController;
 use humhub\modules\calendar\models\CalendarEntry;
+use Yii;
 
 /**
  * ViewController displays the calendar on spaces or user profiles.
@@ -63,7 +63,7 @@ class ViewController extends ContentContainerController
 
     public function canConfigure()
     {
-        if($this->contentContainer instanceof Space) {
+        if ($this->contentContainer instanceof Space) {
             return $this->contentContainer->isAdmin();
         } else {
             return $this->contentContainer->isCurrentUser();
