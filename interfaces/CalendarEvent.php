@@ -6,15 +6,7 @@
  *
  */
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 14.09.2017
- * Time: 12:40
- */
-
 namespace humhub\modules\calendar\interfaces;
-
 
 use yii\base\Event;
 
