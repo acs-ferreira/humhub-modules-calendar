@@ -10,19 +10,12 @@ namespace humhub\modules\calendar\interfaces;
 
 use DateInterval;
 use Exception;
-use humhub\modules\content\components\ContentContainerActiveRecord;
-use Yii;
 use DateTime;
+use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\user\models\User;
 use humhub\modules\content\components\ActiveQueryContent;
+use Yii;
 use yii\base\Object;
-
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 14.09.2017
- * Time: 12:31
- */
 
 abstract class AbstractCalendarQuery extends Object
 {
@@ -668,7 +661,7 @@ abstract class AbstractCalendarQuery extends Object
 
         $this->filterReadable();
 
-        if(Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             $this->filterGuests($this->_container);
         } else {
             if($this->hasFilter(self::FILTER_USERRELATED)) {
@@ -679,7 +672,7 @@ abstract class AbstractCalendarQuery extends Object
                 $this->filterUserRelated();
             }
 
-            if($this->hasFilter(self::FILTER_DASHBOARD)) {
+            if ($this->hasFilter(self::FILTER_DASHBOARD)) {
                 $this->filterDashboard();
             }
 
@@ -712,7 +705,7 @@ abstract class AbstractCalendarQuery extends Object
      */
     protected function filterGuests(ContentContainerActiveRecord $container = null)
     {
-        if(!$this->_query instanceof ActiveQueryContent) {
+        if (!$this->_query instanceof ActiveQueryContent) {
             throw new FilterNotSupportedException('Guest filter not supported for this query');
         }
     }
@@ -723,14 +716,14 @@ abstract class AbstractCalendarQuery extends Object
 
     protected function filterReadable()
     {
-        if($this->_query instanceof ActiveQueryContent) {
+        if ($this->_query instanceof ActiveQueryContent) {
             $this->_query->readable();
         }
     }
 
     protected function filterContentContainer()
     {
-        if($this->_query instanceof ActiveQueryContent) {
+        if ($this->_query instanceof ActiveQueryContent) {
             $this->_query->contentContainer($this->_container);
         } else {
             throw new FilterNotSupportedException('Contentcontainer filter not supported for this query');
@@ -739,7 +732,7 @@ abstract class AbstractCalendarQuery extends Object
 
     protected function filterUserRelated()
     {
-        if($this->_query instanceof ActiveQueryContent) {
+        if ($this->_query instanceof ActiveQueryContent) {
             $this->_query->userRelated($this->_userScopes);
         } else {
             throw new FilterNotSupportedException('User related filter not supported for this query');
@@ -748,11 +741,11 @@ abstract class AbstractCalendarQuery extends Object
 
     protected function filterDashboard()
     {
-        if(Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             throw new FilterNotSupportedException('User related filter not supported for this query');
         }
 
-        if(empty($this->_userScopes)) {
+        if (empty($this->_userScopes)) {
             $this->_userScopes = [ActiveQueryContent::USER_RELATED_SCOPE_SPACES, ActiveQueryContent::USER_RELATED_SCOPE_OWN_PROFILE];
             $this->filterUserRelated();
         }
@@ -760,7 +753,7 @@ abstract class AbstractCalendarQuery extends Object
 
     public function filterMine()
     {
-        if($this->_query instanceof ActiveQueryContent) {
+        if ($this->_query instanceof ActiveQueryContent) {
             $this->_query->andWhere(['content.created_by' => $this->_user->contentcontainer_id]);
         } else {
             throw new FilterNotSupportedException('Mine filter not supported for this query');
