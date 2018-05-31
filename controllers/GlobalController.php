@@ -11,13 +11,13 @@ use humhub\modules\space\models\Membership;
 use humhub\modules\user\models\User;
 use humhub\widgets\ModalButton;
 use humhub\widgets\ModalDialog;
-use Yii;
-use yii\helpers\Json;
 use humhub\components\Controller;
-use yii\helpers\Url;
-use yii\web\HttpException;
 use humhub\modules\content\components\ActiveQueryContent;
 use humhub\modules\calendar\models\SnippetModuleSettings;
+use Yii;
+use yii\helpers\Json;
+use yii\helpers\Url;
+use yii\web\HttpException;
 
 /**
  * GlobalController provides a global view.
@@ -64,7 +64,7 @@ class GlobalController extends Controller
 
     public function actionIndex()
     {
-        if(!Yii::$app->user->isGuest){
+        if (!Yii::$app->user->isGuest){
             $configureUrl = Yii::$app->user->getIdentity()->createUrl('/calendar/container-config');
             $moduleEnabled = Yii::$app->user->getIdentity()->isModuleEnabled('calendar');
         } else {
@@ -94,7 +94,7 @@ class GlobalController extends Controller
             ->andWhere('space_module.id IS NOT NULL')->all();
 
         foreach ($calendarMemberSpaces as $space) {
-            if($space->permissionManager->can(CreateEntry::class)) {
+            if ($space->permissionManager->can(CreateEntry::class)) {
                 $contentContainerSelection[$space->contentcontainer_id] = Html::encode($space->displayName);
             }
         }
@@ -111,18 +111,18 @@ class GlobalController extends Controller
 
         $contentContainer = ContentContainer::findOne(Yii::$app->request->post('contentCotnainerId'));
 
-        if(empty($contentContainer)) {
+        if (empty($contentContainer)) {
             throw new HttpException(404);
         }
 
         $container = $contentContainer->getPolymorphicRelation();
 
-        if(!$container->permissionManager->can(CreateEntry::class)) {
+        if (!$container->permissionManager->can(CreateEntry::class)) {
             throw new HttpException(403);
         }
 
-        if($container instanceof User && $container->is(Yii::$app->user->getIdentity())) {
-            if(!$container->isModuleEnabled('calendar')) {
+        if ($container instanceof User && $container->is(Yii::$app->user->getIdentity())) {
+            if (!$container->isModuleEnabled('calendar')) {
                 return Yii::$app->runAction('/calendar/global/enable', ['start' => $start, 'end' => $end]);
 
                 /**
@@ -151,16 +151,16 @@ class GlobalController extends Controller
      */
     private function getSelectorSettings()
     {
-        if(Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             return [];
         }
 
         $lastSelectorsJson = Yii::$app->user->getIdentity()->getSetting('lastSelectors', 'calendar');
-        if ($lastSelectorsJson != "") {
+        if ($lastSelectorsJson != '') {
             $selectors = Json::decode($lastSelectorsJson);
         }
 
-        if(empty($lastSelectorsJson)) {
+        if (empty($lastSelectorsJson)) {
             $selectors = [
                 ActiveQueryContent::USER_RELATED_SCOPE_OWN_PROFILE,
                 ActiveQueryContent::USER_RELATED_SCOPE_SPACES,
@@ -175,16 +175,16 @@ class GlobalController extends Controller
      */
     private function getFilterSettings()
     {
-        if(Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             return [];
         }
 
         $lastFilterJson = Yii::$app->user->getIdentity()->getSetting('lastFilters', 'calendar');
-        if ($lastFilterJson != "") {
+        if ($lastFilterJson != '') {
             $filters = Json::decode($lastFilterJson);
         }
 
-        if(empty($filters)) {
+        if (empty($filters)) {
             $filters = [];
         }
 
@@ -195,7 +195,7 @@ class GlobalController extends Controller
     {
         $output = [];
 
-        if(!Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest) {
             $selectors = Yii::$app->request->get('selectors', []);
             $filters = Yii::$app->request->get('filters', []);
 
