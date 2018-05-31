@@ -6,13 +6,6 @@
  *
  */
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 14.09.2017
- * Time: 20:44
- */
-
 namespace humhub\modules\calendar\integration;
 
 use humhub\modules\calendar\interfaces\AbstractCalendarQuery;
@@ -44,8 +37,8 @@ class BirthdayCalendarQuery extends AbstractCalendarQuery
 
     protected function setupDateCriteria()
     {
-        $toYear = (int)$this->_to->format('Y');
-        $fromYear = (int)$this->_from->format('Y');
+        $toYear = (int) $this->_to->format('Y');
+        $fromYear = (int) $this->_from->format('Y');
 
         // Check if fromDate and toDate years differs
         if ($toYear == $fromYear) {
