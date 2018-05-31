@@ -6,23 +6,15 @@
  *
  */
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 23.07.2017
- * Time: 23:00
- */
-
 namespace humhub\modules\calendar\controllers;
 
-
-use Yii;
 use humhub\modules\calendar\interfaces\CalendarService;
 use humhub\modules\admin\permissions\ManageSpaces;
 use humhub\modules\calendar\models\CalendarEntryType;
 use humhub\modules\calendar\permissions\ManageEntry;
 use humhub\modules\calendar\models\DefaultSettings;
 use humhub\modules\content\components\ContentContainerController;
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 use yii\web\HttpException;
@@ -71,6 +63,7 @@ class ContainerConfigController extends ContentContainerController
         $model = new DefaultSettings(['contentContainer' => $this->contentContainer]);
         $model->reset();
         $this->view->saved();
+
         return $this->render('@calendar/views/common/defaultConfig', [
             'model' => $model
         ]);
@@ -95,17 +88,17 @@ class ContainerConfigController extends ContentContainerController
 
     public function actionEditType($id = null)
     {
-        if($id) {
+        if ($id) {
             $entryType = CalendarEntryType::find()->where(['id' => $id])->andWhere(['contentcontainer_id' => $this->contentContainer->contentcontainer_id])->one();
         } else {
             $entryType = new CalendarEntryType($this->contentContainer);
         }
 
-        if(!$entryType) {
+        if (!$entryType) {
             throw new HttpException(404);
         }
 
-        if($entryType->load(Yii::$app->request->post()) && $entryType->save()) {
+        if ($entryType->load(Yii::$app->request->post()) && $entryType->save()) {
             $this->view->saved();
             return $this->htmlRedirect($this->contentContainer->createUrl('/calendar/container-config/types'));
         }
@@ -119,7 +112,7 @@ class ContainerConfigController extends ContentContainerController
 
         $entryType = CalendarEntryType::find()->where(['id' => $id])->andWhere(['contentcontainer_id' => $this->contentContainer->contentcontainer_id])->one();
 
-        if(!$entryType) {
+        if (!$entryType) {
             throw new HttpException(404);
         }
 
@@ -140,11 +133,11 @@ class ContainerConfigController extends ContentContainerController
     {
         $item = $this->calendarService->getItemType($key, $this->contentContainer);
 
-        if(!$item) {
+        if (!$item) {
             throw new HttpException(404);
         }
 
-        if($item->load(Yii::$app->request->post()) && $item->save()) {
+        if ($item->load(Yii::$app->request->post()) && $item->save()) {
             $this->view->saved();
             return $this->htmlRedirect($this->contentContainer->createUrl('/calendar/container-config/calendars'));
         }
