@@ -6,8 +6,8 @@
  */
 
 namespace humhub\modules\calendar\integration;
-use humhub\modules\user\models\User;
 
+use humhub\modules\user\models\User;
 
 /**
  * Class BirthdayProfileModel
@@ -24,5 +24,4 @@ class BirthdayUserModel extends User
     {
         return array_merge(parent::attributes(), ['next_birthday']);
     }
-
 }
