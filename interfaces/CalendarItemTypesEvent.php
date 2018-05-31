@@ -6,15 +6,7 @@
  *
  */
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 14.09.2017
- * Time: 12:44
- */
-
 namespace humhub\modules\calendar\interfaces;
-
 
 class CalendarItemTypesEvent extends CalendarEvent
 {
