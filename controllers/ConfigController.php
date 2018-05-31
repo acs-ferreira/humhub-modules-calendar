@@ -8,15 +8,15 @@
 
 namespace humhub\modules\calendar\controllers;
 
-use Yii;
-use yii\data\ActiveDataProvider;
-use yii\helpers\Url;
 use humhub\modules\admin\permissions\ManageModules;
 use humhub\modules\calendar\interfaces\CalendarService;
 use humhub\modules\calendar\models\CalendarEntryType;
 use humhub\modules\calendar\models\DefaultSettings;
 use humhub\modules\admin\components\Controller;
 use humhub\modules\calendar\models\SnippetModuleSettings;
+use Yii;
+use yii\data\ActiveDataProvider;
+use yii\helpers\Url;
 use yii\web\HttpException;
 
 /**
@@ -82,7 +82,7 @@ class ConfigController extends Controller
 
         $entryType = CalendarEntryType::find()->where(['id' => $id])->andWhere('contentcontainer_id IS NULL')->one();
 
-        if(!$entryType) {
+        if (!$entryType) {
             throw new HttpException(404);
         }
 
@@ -93,17 +93,17 @@ class ConfigController extends Controller
 
     public function actionEditType($id = null)
     {
-        if($id) {
+        if ($id) {
             $entryType = CalendarEntryType::find()->where(['id' => $id])->andWhere('contentcontainer_id IS NULL')->one();
         } else {
             $entryType = new CalendarEntryType();
         }
 
-        if(!$entryType) {
+        if (!$entryType) {
             throw new HttpException(404);
         }
 
-        if($entryType->load(Yii::$app->request->post()) && $entryType->save()) {
+        if ($entryType->load(Yii::$app->request->post()) && $entryType->save()) {
             $this->view->saved();
             return $this->htmlRedirect(URL::to(['/calendar/config/types']));
         }
@@ -123,11 +123,11 @@ class ConfigController extends Controller
     {
         $item = $this->calendarService->getItemType($key);
 
-        if(!$item) {
+        if (!$item) {
             throw new HttpException(404);
         }
 
-        if($item->load(Yii::$app->request->post()) && $item->save()) {
+        if ($item->load(Yii::$app->request->post()) && $item->save()) {
             $this->view->saved();
             return $this->htmlRedirect(URL::to(['/calendar/config/calendars']));
         }
@@ -140,6 +140,7 @@ class ConfigController extends Controller
         $model = new DefaultSettings();
         $model->reset();
         $this->view->saved();
+
         return $this->render('@calendar/views/common/defaultConfig', [
             'model' => $model
         ]);
