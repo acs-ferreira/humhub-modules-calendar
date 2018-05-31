@@ -2,8 +2,6 @@
 
 namespace humhub\modules\calendar\controllers;
 
-use Yii;
-use yii\web\HttpException;
 use humhub\modules\calendar\models\DefaultSettings;
 use humhub\modules\calendar\models\forms\CalendarEntryForm;
 use humhub\modules\calendar\notifications\CanceledEventNotification;
@@ -16,6 +14,8 @@ use humhub\modules\content\components\ContentContainerController;
 use humhub\modules\calendar\permissions\CreateEntry;
 use humhub\modules\calendar\models\CalendarEntry;
 use humhub\modules\calendar\models\CalendarEntryParticipant;
+use Yii;
+use yii\web\HttpException;
 
 /**
  * EntryController used to display, edit or delete calendar entries
@@ -66,9 +66,10 @@ class EntryController extends ContentContainerController
         }
 
         $participationState = $calendarEntry->setParticipationState((int)$type);
-        if($participationState->hasErrors()) {
+        if ($participationState->hasErrors()) {
             return $this->asJson(['success' => false, 'errors' => $participationState->getErrors()]);
         }
+
         return $this->asJson(['success' => true]);
     }
 
@@ -89,7 +90,7 @@ class EntryController extends ContentContainerController
         }
 
         if ($calendarEntryForm->load(Yii::$app->request->post()) && $calendarEntryForm->save()) {
-            if(empty($cal)) {
+            if (empty($cal)) {
                 return ModalClose::widget(['saved' => true]);
             } else {
                 return $this->renderModal($calendarEntryForm->entry, 1);
@@ -107,11 +108,11 @@ class EntryController extends ContentContainerController
     {
         $entry = $this->getCalendarEntry($id);
 
-        if(!$entry) {
+        if (!$entry) {
             throw new HttpException(404);
         }
 
-        if(!$entry->content->canEdit()) {
+        if (!$entry->content->canEdit()) {
             throw new HttpException(403);
         }
 
@@ -159,7 +160,7 @@ class EntryController extends ContentContainerController
         ]);
         $query->where('calendar_entry_participant.id IS NOT NULL');
 
-        $title = "";
+        $title = '';
         if ($state == CalendarEntryParticipant::PARTICIPATION_STATE_ACCEPTED) {
             $title = Yii::t('CalendarModule.base', 'Attending users');
         } elseif ($state == CalendarEntryParticipant::PARTICIPATION_STATE_DECLINED) {
@@ -167,6 +168,7 @@ class EntryController extends ContentContainerController
         } elseif ($state == CalendarEntryParticipant::PARTICIPATION_STATE_MAYBE) {
             $title = Yii::t('CalendarModule.base', 'Maybe attending users');
         }
+
         return $this->renderAjaxContent(UserListBox::widget(['query' => $query, 'title' => $title]));
     }
 
@@ -229,6 +231,7 @@ class EntryController extends ContentContainerController
     {
         $calendarEntry = $this->getCalendarEntry(Yii::$app->request->get('id'));
         $ics = $calendarEntry->generateIcs();
+
         return Yii::$app->response->sendContentAsFile($ics, uniqid() . '.ics', ['mimeType' => 'text/calendar']);
     }
 }
