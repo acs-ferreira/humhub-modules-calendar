@@ -6,15 +6,7 @@
  *
  */
 
-/**
- * Created by PhpStorm.
- * User: buddha
- * Date: 14.09.2017
- * Time: 17:13
- */
-
 namespace humhub\modules\calendar\interfaces;
-
 
 use DateTime;
 use humhub\widgets\Label;
